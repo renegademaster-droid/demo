@@ -28,21 +28,30 @@ jobs:
         with:
           node-version: "20"
 
+      # In monorepo, demo is in ./demo; as standalone repo, project root is demo
+      - name: Set demo directory
+        id: demo
+        run: |
+          if [ -f demo/package.json ]; then echo "dir=demo" >> $GITHUB_OUTPUT; else echo "dir=." >> $GITHUB_OUTPUT; fi
+
       - name: Install dependencies
         env:
           NODE_ENV: development
         run: npm ci
+        working-directory: ${{ steps.demo.outputs.dir }}
 
       - name: Build
         run: npm run build
+        working-directory: ${{ steps.demo.outputs.dir }}
 
       - name: Fix SPA routing (404 → index.html)
         run: cp dist/index.html dist/404.html
+        working-directory: ${{ steps.demo.outputs.dir }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: ${{ steps.demo.outputs.dir }}/dist
 
   deploy:
     needs: build
