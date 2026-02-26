@@ -8,8 +8,10 @@ const vitePath = path.join(root, "node_modules", "vite");
 if (!fs.existsSync(vitePath)) {
   console.log("Dependencies not found. Running npm install...");
   const hasLock = fs.existsSync(path.join(root, "package-lock.json"));
+  const env = { ...process.env, NODE_ENV: "development" };
   execSync(hasLock ? "npm ci" : "npm install", {
     cwd: root,
     stdio: "inherit",
+    env,
   });
 }
