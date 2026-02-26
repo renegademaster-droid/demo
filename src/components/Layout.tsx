@@ -1,14 +1,12 @@
 import { useState } from "react";
 import {
   Box,
-  Button,
   CloseButton,
   Drawer,
   Flex,
   HStack,
   IconButton,
   Link as ChakraLink,
-  Menu,
   Portal,
   Text,
   VStack,
@@ -23,23 +21,16 @@ const NAV_ITEMS = [
   { path: "/summary", label: "Summary" },
 ] as const;
 
-const LUMON_ITEMS = [
-  { path: "/lumon", label: "Lumon" },
-  { path: "/lumon/2", label: "Lumon 2" },
-] as const;
-
 function NavLinks({
   locationPath,
   onNavigate,
-  includeLumon,
   linkProps,
 }: {
   locationPath: string;
   onNavigate?: () => void;
-  includeLumon: boolean;
   linkProps?: (path: string, isActive: boolean) => Record<string, unknown>;
 }) {
-  const items = includeLumon ? [...NAV_ITEMS, ...LUMON_ITEMS] : [...NAV_ITEMS];
+  const items = [...NAV_ITEMS];
 
   return (
     <>
@@ -115,30 +106,7 @@ export function Layout() {
 
           {/* Desktop nav: visible from md up */}
           <HStack as="nav" gap="6" display={{ base: "none", md: "flex" }} aria-label="Päävalikko">
-            <NavLinks locationPath={location.pathname} includeLumon={false} />
-            <Menu.Root positioning={{ placement: "bottom-start" }}>
-              <Menu.Trigger asChild>
-                <Button variant="ghost" size="sm" type="button" aria-haspopup="menu" fontWeight={location.pathname.startsWith("/lumon") ? "semibold" : "normal"} color={location.pathname.startsWith("/lumon") ? "fg" : "fg.muted"} _hover={{ color: "fg" }}>
-                  Lumon
-                </Button>
-              </Menu.Trigger>
-              <Portal>
-                <Menu.Positioner>
-                  <Menu.Content minW="40">
-                    <Menu.Item value="lumon" asChild>
-                      <Link to="/lumon" style={{ textDecoration: "none" }}>
-                        Lumon
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item value="lumon-2" asChild>
-                      <Link to="/lumon/2" style={{ textDecoration: "none" }}>
-                        Lumon 2
-                      </Link>
-                    </Menu.Item>
-                  </Menu.Content>
-                </Menu.Positioner>
-              </Portal>
-            </Menu.Root>
+            <NavLinks locationPath={location.pathname} />
           </HStack>
 
           {/* Mobile: menu button that opens drawer */}
@@ -173,7 +141,6 @@ export function Layout() {
                     <VStack align="stretch" gap="0">
                       <NavLinks
                         locationPath={location.pathname}
-                        includeLumon={true}
                         onNavigate={() => setDrawerOpen(false)}
                         linkProps={() => ({ w: "full", textAlign: "start" })}
                       />

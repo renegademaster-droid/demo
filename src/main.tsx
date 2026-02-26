@@ -7,8 +7,6 @@ import { Theme } from "@chakra-ui/react";
 import { StudyProvider } from "./context/StudyContext";
 import { Layout } from "./components/Layout";
 import { HomePage } from "./pages/HomePage";
-import { LumonPage } from "./pages/LumonPage";
-import { Lumon2Page } from "./pages/Lumon2Page";
 import { ThemePage } from "./pages/ThemePage";
 import { StudyPage } from "./pages/StudyPage";
 import { SummaryPage } from "./pages/SummaryPage";
@@ -37,10 +35,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
-            <Route path="lumon">
-              <Route index element={<LumonPage />} />
-              <Route path="2" element={<Lumon2Page />} />
-            </Route>
             <Route path="theme" element={<ThemePage />} />
             <Route path="study" element={<StudyPage />} />
             <Route path="summary" element={<SummaryPage />} />

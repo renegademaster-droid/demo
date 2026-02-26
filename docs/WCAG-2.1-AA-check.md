@@ -23,7 +23,7 @@ Auditointi ajetaan vain kehitystilassa (`import.meta.env.DEV`).
 | **2.4.4 Link Purpose (A)** | ✅ | Linkkien teksti selkeä; logo `aria-label="Etusivu - GDS Demo"` |
 | **2.4.6 Headings and Labels (AA)** | ⚠️ | Otsikot ja labelit tarkista sivu kerrallaan |
 | **3.1.1 Language of Page (A)** | ✅ | `<html lang="fi">` |
-| **4.1.2 Name, Role, Value (A)** | ✅ | IconButtonit `aria-label`, Lumon-valikko `aria-haspopup="menu"`, Drawer otsikko "Menu" |
+| **4.1.2 Name, Role, Value (A)** | ✅ | IconButtonit `aria-label`, Drawer otsikko "Menu" |
 | **Semanttiset landmarkit** | ✅ | `header`, `nav` (aria-label="Päävalikko"), `main` (id="main-content") |
 | **Näppäimistö** | ✅ | Chakra-komponentit (Drawer, Menu, Dialog) tukevat fokusta ja Esc |
 
