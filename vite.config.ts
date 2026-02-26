@@ -44,7 +44,7 @@ export default defineConfig({
   base: process.env.BASE_PATH ?? "/",
   plugins: [gdsTokensPlugin(), react()],
   optimizeDeps: {
-    exclude: ["@gds/react", "@gds/theme", "@gds/tokens"],
+    exclude: ["@gdesignsystem/react", "@gdesignsystem/theme", "@gdesignsystem/tokens"],
   },
   server: {
     fs: {

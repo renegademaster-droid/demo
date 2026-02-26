@@ -28,7 +28,7 @@ import {
   RotateCcwIcon,
   TrashIcon,
   UploadIcon,
-} from "@gds/icons";
+} from "@gdesignsystem/icons";
 import { useStudy } from "../context/StudyContext";
 import {
   generateStudyQuestions,

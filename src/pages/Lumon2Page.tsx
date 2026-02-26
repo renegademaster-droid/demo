@@ -23,7 +23,7 @@ import {
   PlusIcon,
   SearchIcon,
   SettingsIcon,
-} from "@gds/icons";
+} from "@gdesignsystem/icons";
 
 type SitesTab = "all" | "consumer" | "projects" | "history";
 

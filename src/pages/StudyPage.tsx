@@ -10,7 +10,7 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
-import { BotIcon, MicIcon, MicOffIcon, SendIcon, UserIcon } from "@gds/icons";
+import { BotIcon, MicIcon, MicOffIcon, SendIcon, UserIcon } from "@gdesignsystem/icons";
 import { useStudy } from "../context/StudyContext";
 
 function useSpeechRecognition() {

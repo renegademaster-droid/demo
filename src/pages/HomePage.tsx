@@ -1,5 +1,5 @@
 import { Box, Button, Container, Heading, HStack, Text, VStack } from "@chakra-ui/react";
-import { CheckIcon, ArrowRightIcon } from "@gds/icons";
+import { CheckIcon, ArrowRightIcon } from "@gdesignsystem/icons";
 
 export function HomePage() {
   return (

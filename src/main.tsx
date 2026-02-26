@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { ThemeProvider, useTheme } from "next-themes";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { GDSProvider } from "@gds/react";
+import { GDSProvider } from "@gdesignsystem/react";
 import { Theme } from "@chakra-ui/react";
 import { StudyProvider } from "./context/StudyContext";
 import { Layout } from "./components/Layout";

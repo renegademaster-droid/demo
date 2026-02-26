@@ -30,7 +30,7 @@ import {
   SendIcon,
   SettingsIcon,
   FileTextIcon,
-} from "@gds/icons";
+} from "@gdesignsystem/icons";
 
 const ANNOUNCEMENTS = [
   {

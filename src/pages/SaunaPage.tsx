@@ -20,7 +20,7 @@ import {
   ThermometerIcon,
   UsersIcon,
   WavesIcon,
-} from "@gds/icons";
+} from "@gdesignsystem/icons";
 import { SAUNAS, type Sauna } from "../data/saunas";
 
 const FINLAND_CENTER: [number, number] = [64.5, 26.0];

@@ -12,7 +12,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { MenuIcon } from "@gds/icons";
+import { MenuIcon } from "@gdesignsystem/icons";
 
 const NAV_ITEMS = [
   { path: "/sauna", label: "Sauna" },
