@@ -29,6 +29,8 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
+        env:
+          NODE_ENV: development
         run: npm ci
 
       - name: Build
