@@ -3,13 +3,24 @@ const path = require("path");
 const { execSync } = require("child_process");
 
 const root = path.join(__dirname, "..");
-const vitePath = path.join(root, "node_modules", "vite");
-const tscPath = path.join(root, "node_modules", ".bin", "tsc");
+const nodeModules = path.join(root, "node_modules");
+const vitePath = path.join(nodeModules, "vite");
+const reactPath = path.join(nodeModules, "react");
+const tscPath = path.join(nodeModules, ".bin", "tsc");
 
 const env = { ...process.env, NODE_ENV: "development" };
 
-if (!fs.existsSync(vitePath)) {
-  console.log("Dependencies not found. Running npm install (with devDependencies)...");
+function needInstall() {
+  return !fs.existsSync(vitePath) || !fs.existsSync(reactPath) || !fs.existsSync(tscPath);
+}
+
+if (needInstall()) {
+  console.log("Dependencies missing or incomplete. Running full npm install...");
+  if (fs.existsSync(nodeModules)) {
+    try {
+      fs.rmSync(nodeModules, { recursive: true });
+    } catch (_) {}
+  }
   const hasLock = fs.existsSync(path.join(root, "package-lock.json"));
   execSync(hasLock ? "npm ci --include=dev" : "npm install --include=dev", {
     cwd: root,
@@ -18,12 +29,9 @@ if (!fs.existsSync(vitePath)) {
   });
 }
 
-if (!fs.existsSync(vitePath) || !fs.existsSync(tscPath)) {
-  console.log("Installing build devDependencies explicitly...");
-  execSync(
-    "npm install typescript vite @vitejs/plugin-react @types/node --save-dev",
-    { cwd: root, stdio: "inherit", env }
-  );
+if (needInstall()) {
+  console.log("Second attempt: npm install --include=dev");
+  execSync("npm install --include=dev", { cwd: root, stdio: "inherit", env });
 }
 
 // Run via npm so PATH and pnpm symlinks work (direct execSync of .bin/tsc can hang)
