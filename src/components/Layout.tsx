@@ -15,8 +15,6 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { MenuIcon } from "@gds/icons";
 
 const NAV_ITEMS = [
-  { path: "/dvv", label: "DVV" },
-  { path: "/demo", label: "DEMO" },
   { path: "/sauna", label: "Sauna" },
   { path: "/theme", label: "Theme" },
   { path: "/study", label: "Study" },

@@ -1,9 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve, normalize } from "node:path";
 
-// GDS repo lives alongside this app (e.g. gds/demo and gds/GDS)
+// GDS repo lives alongside this app (e.g. gds/demo and gds/GDS); optional in CI
 const gdsRoot = resolve(__dirname, "../GDS");
 const tokensPath = resolve(gdsRoot, "packages/tokens/figma/tokens.raw.json");
 const TOKENS_PKG_ID = "@gds/tokens/figma/tokens.raw.json";
@@ -19,6 +19,9 @@ function gdsTokensPlugin() {
     },
     load(id: string) {
       if (id !== TOKENS_VIRTUAL_ID) return null;
+      if (!existsSync(tokensPath)) {
+        return "export default {}";
+      }
       const raw = readFileSync(tokensPath, "utf-8");
       const json = JSON.parse(raw) as { typography?: { "fonts/body"?: string } };
       const bodyFont = json.typography?.["fonts/body"];
@@ -26,6 +29,7 @@ function gdsTokensPlugin() {
       return `export default ${JSON.stringify(json)}`;
     },
     configureServer(server: import("vite").ViteDevServer) {
+      if (!existsSync(tokensPath)) return;
       server.watcher.add(tokensPath);
       server.watcher.on("change", (changedPath: string) => {
         if (normalize(resolve(changedPath)) === normalize(tokensPath)) {
@@ -44,8 +48,9 @@ export default defineConfig({
   },
   server: {
     fs: {
-      // Allow this app's root (so index.html, src/, public/ can be served) and GDS (for linked packages)
-      allow: [resolve(__dirname), gdsRoot],
+      allow: existsSync(gdsRoot)
+        ? [resolve(__dirname), gdsRoot]
+        : [resolve(__dirname)],
     },
   },
 });

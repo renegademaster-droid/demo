@@ -57,6 +57,6 @@ Sovellus on single-page app (React Router). GitHub Pages ei tue palvelinpuolen r
 ## Rakenteen lyhyt kuvaus
 
 - **Layout:** Päälayout, navigaatio, mobiilivalikko (drawer)
-- **Sivut:** Etusivu, DVV, Demo/Lumon, Sauna, Theme, Study, Summary
+- **Sivut:** Etusivu, Lumon, Sauna, Theme, Study, Summary
 - **Sauna:** Dashboard, kartta (Leaflet), WCAG 2.1 AA -auditointi (axe-core dev-tilassa)
 - **WCAG:** Skip-linkki, landmarkit, aria-labelit; lisätietoa: `docs/WCAG-2.1-AA-check.md`
