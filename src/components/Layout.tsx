@@ -1,11 +1,13 @@
 import { useState } from "react";
 import {
   Box,
+  Button,
   CloseButton,
   Drawer,
   Flex,
   HStack,
   IconButton,
+  Link as ChakraLink,
   Menu,
   Portal,
   Text,
@@ -54,11 +56,10 @@ function NavLinks({
               textStyle="sm"
               color={active ? "fg" : "fg.muted"}
               fontWeight={active ? "semibold" : "normal"}
-              _hover={{ color: "fg" }}
               py="2"
               px={linkProps ? 3 : 0}
               borderRadius="md"
-              _hover={{ bg: linkProps ? "bg.muted" : undefined }}
+              _hover={{ color: "fg", bg: linkProps ? "bg.muted" : undefined }}
               {...(linkProps?.(path, active) ?? {})}
             >
               {label}
@@ -77,8 +78,7 @@ export function Layout() {
   return (
     <Box display="flex" flexDirection="column" minH="100vh">
       {/* WCAG 2.4.1 Bypass Blocks: skip link, näkyy vain fokuksessa */}
-      <Box
-        as="a"
+      <ChakraLink
         href="#main-content"
         position="absolute"
         left={{ base: "4", md: "6" }}
@@ -100,12 +100,12 @@ export function Layout() {
         sx={{ "&:focus": { opacity: 1, transform: "translateY(0)" } }}
       >
         Siirry pääsisältöön
-      </Box>
+      </ChakraLink>
 
       <Box as="header" borderBottomWidth="1px" borderColor="border.muted" px={{ base: "4", md: "6" }} py="4" flexShrink={0}>
         <Flex align="center" justify="space-between" maxW="6xl" mx="auto">
           <Link to="/" style={{ textDecoration: "none" }} aria-label="Etusivu - GDS Demo">
-            <Text fontWeight="semibold" textStyle="lg" color="fg" noOfLines={1}>
+            <Text fontWeight="semibold" textStyle="lg" color="fg" lineClamp={1}>
               GDS Demo (external)
             </Text>
           </Link>
@@ -115,16 +115,9 @@ export function Layout() {
             <NavLinks locationPath={location.pathname} includeLumon={false} />
             <Menu.Root positioning={{ placement: "bottom-start" }}>
               <Menu.Trigger asChild>
-                <Box as="button" type="button" aria-haspopup="menu">
-                  <Text
-                    textStyle="sm"
-                    color={location.pathname.startsWith("/lumon") ? "fg" : "fg.muted"}
-                    fontWeight={location.pathname.startsWith("/lumon") ? "semibold" : "normal"}
-                    _hover={{ color: "fg" }}
-                  >
-                    Lumon
-                  </Text>
-                </Box>
+                <Button variant="ghost" size="sm" type="button" aria-haspopup="menu" fontWeight={location.pathname.startsWith("/lumon") ? "semibold" : "normal"} color={location.pathname.startsWith("/lumon") ? "fg" : "fg.muted"} _hover={{ color: "fg" }}>
+                  Lumon
+                </Button>
               </Menu.Trigger>
               <Portal>
                 <Menu.Positioner>

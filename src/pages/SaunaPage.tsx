@@ -63,7 +63,6 @@ function SaunaMap({ onSaunaSelect }: { onSaunaSelect: (sauna: Sauna) => void }) 
     const cluster = L.markerClusterGroup({
       maxClusterRadius: 60,
       spiderfyOnMaxZoom: true,
-      showCoverageOnHover: false,
     });
 
     SAUNAS.forEach((sauna) => {

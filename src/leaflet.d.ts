@@ -1,5 +1,7 @@
 interface LeafletMap {
   setView(center: [number, number], zoom: number): this;
+  addLayer(layer: LeafletMarkerClusterGroup): this;
+  removeLayer(layer: LeafletMarkerClusterGroup): this;
   remove(): void;
 }
 interface LeafletTileLayer {
@@ -34,6 +36,6 @@ interface LeafletStatic {
   tileLayer(url: string, options: { attribution: string }): LeafletTileLayer;
   marker(latLng: [number, number], options?: LeafletMarkerOptions): LeafletMarker;
   divIcon(options: DivIconOptions): LeafletDivIcon;
-  markerClusterGroup(options?: { maxClusterRadius?: number; spiderfyOnMaxZoom?: boolean }): LeafletMarkerClusterGroup;
+  markerClusterGroup(options?: { maxClusterRadius?: number; spiderfyOnMaxZoom?: boolean; showCoverageOnHover?: boolean }): LeafletMarkerClusterGroup;
 }
 declare const L: LeafletStatic;
