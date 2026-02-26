@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "node scripts/check-deps.cjs",
+    "build:tsc": "tsc -b",
+    "build:vite": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
