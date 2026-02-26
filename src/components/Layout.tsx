@@ -78,29 +78,32 @@ export function Layout() {
   return (
     <Box display="flex" flexDirection="column" minH="100vh">
       {/* WCAG 2.4.1 Bypass Blocks: skip link, näkyy vain fokuksessa */}
-      <ChakraLink
-        href="#main-content"
+      <Box
         position="absolute"
         left={{ base: "4", md: "6" }}
         top="4"
         zIndex={50}
-        p="3"
-        borderRadius="md"
-        bg="bg.panel"
-        color="fg"
-        textStyle="sm"
-        fontWeight="medium"
-        borderWidth="1px"
-        borderColor="border.muted"
-        _focus={{ outline: "2px solid", outlineColor: "border.emphasized", outlineOffset: "2px" }}
-        _focusVisible={{ opacity: 1 }}
         opacity={0}
         transform="translateY(-100%)"
         transition="opacity 0.2s, transform 0.2s"
-        sx={{ "&:focus": { opacity: 1, transform: "translateY(0)" } }}
+        _focusWithin={{ opacity: 1, transform: "translateY(0)" }}
       >
-        Siirry pääsisältöön
-      </ChakraLink>
+        <ChakraLink
+          href="#main-content"
+          display="block"
+          p="3"
+          borderRadius="md"
+          bg="bg.panel"
+          color="fg"
+          textStyle="sm"
+          fontWeight="medium"
+          borderWidth="1px"
+          borderColor="border.muted"
+          _focus={{ outline: "2px solid", outlineColor: "border.emphasized", outlineOffset: "2px" }}
+        >
+          Siirry pääsisältöön
+        </ChakraLink>
+      </Box>
 
       <Box as="header" borderBottomWidth="1px" borderColor="border.muted" px={{ base: "4", md: "6" }} py="4" flexShrink={0}>
         <Flex align="center" justify="space-between" maxW="6xl" mx="auto">
