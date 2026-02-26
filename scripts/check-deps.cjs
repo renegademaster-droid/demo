@@ -7,11 +7,17 @@ const nodeModules = path.join(root, "node_modules");
 const vitePath = path.join(nodeModules, "vite");
 const reactPath = path.join(nodeModules, "react");
 const tscPath = path.join(nodeModules, ".bin", "tsc");
+const reactRouterPath = path.join(nodeModules, "react-router-dom");
 
 const env = { ...process.env, NODE_ENV: "development" };
 
 function needInstall() {
-  return !fs.existsSync(vitePath) || !fs.existsSync(reactPath) || !fs.existsSync(tscPath);
+  return (
+    !fs.existsSync(vitePath) ||
+    !fs.existsSync(reactPath) ||
+    !fs.existsSync(tscPath) ||
+    !fs.existsSync(reactRouterPath)
+  );
 }
 
 if (needInstall()) {
@@ -34,9 +40,13 @@ if (needInstall()) {
   execSync("npm install --include=dev", { cwd: root, stdio: "inherit", env });
 }
 
-// CI often installs prod-only; force-install build devDeps by name so tsc/vite exist
+// CI often installs prod-only or incomplete; force-install all deps by name
 if (needInstall()) {
-  console.log("Force-installing build devDependencies (CI prod-only workaround)...");
+  console.log("Force-installing all dependencies by name (CI workaround)...");
+  execSync(
+    "npm install @chakra-ui/react @emotion/react @gdesignsystem/icons @gdesignsystem/react next-themes pdfjs-dist react react-dom react-router-dom",
+    { cwd: root, stdio: "inherit", env }
+  );
   execSync(
     "npm install typescript vite @vitejs/plugin-react @types/node @types/react @types/react-dom --save-dev",
     { cwd: root, stdio: "inherit", env }
