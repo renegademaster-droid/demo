@@ -34,6 +34,15 @@ if (needInstall()) {
   execSync("npm install --include=dev", { cwd: root, stdio: "inherit", env });
 }
 
+// CI often installs prod-only; force-install build devDeps by name so tsc/vite exist
+if (needInstall()) {
+  console.log("Force-installing build devDependencies (CI prod-only workaround)...");
+  execSync(
+    "npm install typescript vite @vitejs/plugin-react @types/node @types/react @types/react-dom --save-dev",
+    { cwd: root, stdio: "inherit", env }
+  );
+}
+
 // Run via npm so PATH and pnpm symlinks work (direct execSync of .bin/tsc can hang)
 execSync("npm run build:tsc", { cwd: root, stdio: "inherit", env });
 execSync("npm run build:vite", { cwd: root, stdio: "inherit", env });
