@@ -1,7 +1,15 @@
 const fs = require("fs");
 const path = require("path");
-const vitePath = path.join(__dirname, "..", "node_modules", "vite");
+const { execSync } = require("child_process");
+
+const root = path.join(__dirname, "..");
+const vitePath = path.join(root, "node_modules", "vite");
+
 if (!fs.existsSync(vitePath)) {
-  console.error("\nError: Dependencies not installed. Run: npm install\n");
-  process.exit(1);
+  console.log("Dependencies not found. Running npm install...");
+  const hasLock = fs.existsSync(path.join(root, "package-lock.json"));
+  execSync(hasLock ? "npm ci" : "npm install", {
+    cwd: root,
+    stdio: "inherit",
+  });
 }
